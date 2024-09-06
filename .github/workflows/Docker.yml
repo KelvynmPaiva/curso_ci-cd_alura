@@ -1,10 +1,7 @@
 name: Docker
 
 on:
-  workflow_run:
-    workflows: ["Go"]
-    types:
-      - completed
+  workflow_call:
 
 jobs:
 
