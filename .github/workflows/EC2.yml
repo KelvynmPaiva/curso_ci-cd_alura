@@ -5,7 +5,7 @@ on:
 
 jobs:
 
-    docker:
+    EC2:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
@@ -15,7 +15,7 @@ jobs:
           with:
             name: programa 
 
-        - name: Deploy to Staging server
+        - name: Implantar no servidor de preparação - SSH
           uses: easingthemes/ssh-deploy@main
           env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -23,3 +23,20 @@ jobs:
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
             TARGET: /home/${{secrets.REMOTE_USER}}
             EXCLUDE: "postgres-data"
+        
+        - name: executando comandos ssh remotos usando senha
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.REMOTE_HOST }}
+            username: ${{ secrets.REMOTE_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY}}
+            port: 22
+            script: |
+              export HOST=${{ secrets.DBHOST }}
+              export USER=${{ secrets.DBUSER }}
+              export PASSWORD=${{ secrets.DBPASSWORD }}
+              export DBNAME=${{ secrets.DBNAME }}
+              export PORT=${{ secrets.DBPORT }}
+              export PORT=8000
+              chmod +x main
+              nohup ./main &
