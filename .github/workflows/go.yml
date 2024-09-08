@@ -58,3 +58,9 @@ jobs:
     needs: build
     uses: ./.github/workflows/Docker.yml
     secrets: inherit 
+    
+  # Cadastro de rotina da EC2
+  Deploy_ec2:
+    needs: build
+    uses: ./.github/workflows/EC2.yml
+    secrets: inherit 
