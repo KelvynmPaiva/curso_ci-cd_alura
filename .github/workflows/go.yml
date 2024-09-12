@@ -64,3 +64,9 @@ jobs:
     needs: build
     uses: ./.github/workflows/EC2.yml
     secrets: inherit 
+
+  # Cadastro de rotina da ECS
+  Deploy_ECS:
+    needs: build
+    uses: ./.github/workflows/ECS.yml
+    secrets: inherit 
