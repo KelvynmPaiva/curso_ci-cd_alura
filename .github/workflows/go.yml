@@ -60,10 +60,10 @@ jobs:
     secrets: inherit 
     
   # Cadastro de rotina da EC2
-  Deploy_ec2:
-    needs: build
-    uses: ./.github/workflows/EC2.yml
-    secrets: inherit 
+  # Deploy_ec2:
+  #   needs: build
+  #   uses: ./.github/workflows/EC2.yml
+  #   secrets: inherit 
 
   # Cadastro de rotina da ECS
   Deploy_ECS:
