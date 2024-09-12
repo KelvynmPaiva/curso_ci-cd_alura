@@ -1,0 +1,8 @@
+name: Entrega contínua no ECS
+
+on:
+  workflow_call: 
+
+jobs:
+    EC2:
+        runs-on: ubuntu-latest
