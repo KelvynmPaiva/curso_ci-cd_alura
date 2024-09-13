@@ -7,6 +7,7 @@ jobs:
     ECS:
         runs-on: ubuntu-latest
         steps:
+          
           - name: Configurando credenciais da AWS
             uses: aws-actions/configure-aws-credentials@v1
             with:
