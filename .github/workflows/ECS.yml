@@ -7,13 +7,13 @@ jobs:
     ECS:
         runs-on: ubuntu-latest
         steps:
-          
+
           - name: Configurando credenciais da AWS
             uses: aws-actions/configure-aws-credentials@v1
             with:
               aws-access-key-id: ${{ secrets.ID_CHAVE_ACESSO_AWS }}
               aws-secret-access-key: ${{ secrets.CHAVE_SECRETA_AWS }}
-              aws-region: us-east-2
+              aws-region: us-east-2 #(Ohaio)
 
           - name: Obtendo arquivo da tarefa
             run: aws ecs describe-task-definition --task-definition tarefa_de_cluster_ci-cd_alura --query taskDefinition > task-definition.json
