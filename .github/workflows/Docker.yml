@@ -30,4 +30,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: kelvynpaiva/curso_ci-cd_alura:${{github.ref_name}}
+        tags: kelvynpaiva/curso_ci-cd_alura:${{github.run_number}}

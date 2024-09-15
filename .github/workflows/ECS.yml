@@ -24,7 +24,7 @@ jobs:
             with:
                 task-definition: task-definition.json
                 container-name: Go
-                image: kelvynpaiva/curso_ci-cd_alura:curso_04
+                image: kelvynpaiva/curso_ci-cd_alura:${{github.run_number}}
                 environment-variables: |
                   HOST=${{ secrets.DBHOST }}
                   USER=${{ secrets.DBUSER }}
