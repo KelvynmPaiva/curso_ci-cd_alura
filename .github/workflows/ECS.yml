@@ -18,6 +18,9 @@ jobs:
           - name: Obtendo arquivo da tarefa
             run: aws ecs describe-task-definition --task-definition tarefa_de_cluster_ci-cd_alura --query taskDefinition > task-definition.json
 
+          - name: Cópia do task-definition
+            run: cp task-definition.json task-definition.json.old
+
           - name: Preencha o novo ID da imagem na definição de tarefa do Amazon ECS
             id: task-def
             uses: aws-actions/amazon-ecs-render-task-definition@v1
