@@ -17,3 +17,26 @@ jobs:
 
           - name: Obtendo arquivo da tarefa
             run: aws ecs describe-task-definition --task-definition tarefa_de_cluster_ci-cd_alura --query taskDefinition > task-definition.json
+
+          - name: Preencha o novo ID da imagem na definição de tarefa do Amazon ECS
+            id: task-def
+            uses: aws-actions/amazon-ecs-render-task-definition@v1
+            with:
+                task-definition: task-definition.json
+                container-name: Go
+                image: kelvynpaiva/curso_ci-cd_alura:curso_04
+                environment-variables: |
+                  HOST=${{ secrets.DBHOST }}
+                  USER=${{ secrets.DBUSER }}
+                  PASSWORD=${{ secrets.DBPASSWORD }}
+                  DBNAME=${{ secrets.DBNAME }}
+                  DBPORT=${{ secrets.DBPORT }}
+                  PORT=8000
+
+          - name: Deploy de tarefa do Amazon ECS
+            uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+            with:
+                task-definition: ${{ steps.task-def.outputs.task-definition }}
+                service: servico_curso_ci-cd_alura
+                cluster: cluster-curso-ci-cd-alura
+                wait-for-service-stability: true
