@@ -36,10 +36,23 @@ jobs:
                   DBPORT=${{ secrets.DBPORT }}
                   PORT=8000
 
-          - name: Deploy de tarefa do Amazon ECS
+          - name: Deploy de tarefa no Amazon ECS
             uses: aws-actions/amazon-ecs-deploy-task-definition@v1
             with:
                 task-definition: ${{ steps.task-def.outputs.task-definition }}
+                service: servico_curso_ci-cd_alura
+                cluster: cluster-curso-ci-cd-alura
+                wait-for-service-stability: true
+
+          - name: Requisição
+            continue-on-error: true
+            run: echo "REQUEST=0" >> $GITHUB_ENV ; sleep 30s ; wget LoadBalance-ci-cd-alura-1473920811.us-east-2.elb.amazonaws.com:8000/Kelvyn || echo "REQUEST=1" >> $GITHUB_ENV
+
+          - name: Deploy de retorno da tarefa Antiga
+            if: ${{ env.REQUEST != 0 }}
+            uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+            with:
+                task-definition: task-definition.json.old
                 service: servico_curso_ci-cd_alura
                 cluster: cluster-curso-ci-cd-alura
                 wait-for-service-stability: true
