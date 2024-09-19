@@ -16,9 +16,15 @@ jobs:
                 aws-secret-access-key: ${{ secrets.CHAVE_SECRETA_AWS }}
                 aws-region: us-east-2 
             
-            - run: git clone https://github.com/KelvynmPaiva/Infra_aux_CI
-            - run: ls -R infra_aux_CI
-            - run: ls -l infra_aux_CI/env 
+            - run: git clone https://github.com/KelvynmPaiva/Infra_aux_CI || (echo "Clone falhou" && exit 1)
+            - name: Verificar informações do ambiente
+              run: |
+                echo "Diretório atual:"
+                pwd
+                echo "Listar diretórios:"
+                ls -la
+
+
 
             - name: HashiCorp - Setup terraform
               uses: hashicorp/setup-terraform@v2.0.3  
