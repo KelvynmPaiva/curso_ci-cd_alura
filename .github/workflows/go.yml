@@ -59,14 +59,18 @@ jobs:
     uses: ./.github/workflows/Docker.yml
     secrets: inherit 
     
-  # Cadastro de rotina da EC2
   # Deploy_ec2:
   #   needs: build
   #   uses: ./.github/workflows/EC2.yml
   #   secrets: inherit 
 
-  # Cadastro de rotina da ECS
   Deploy_ECS:
-    needs: build
+    needs: docker
     uses: ./.github/workflows/ECS.yml
+    secrets: inherit 
+  
+  LoadTest:
+    needs: docker
+    if: ${{ github.ref_name == 'curso_05'}}
+    uses: ./.github/workflows/LoadTest.yml
     secrets: inherit 
