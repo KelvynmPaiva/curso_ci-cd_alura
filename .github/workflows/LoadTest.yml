@@ -17,7 +17,6 @@ jobs:
                 aws-region: us-east-2 
             
             - run: git clone https://github.com/KelvynmPaiva/Infra_aux_CI
-            #Alterando Região do Bucket para corrigir o erro
 
             - name: HashiCorp - Setup terraform
               uses: hashicorp/setup-terraform@v2.0.3  
